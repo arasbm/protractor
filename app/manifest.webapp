@@ -1,0 +1,30 @@
+{
+    "version": "1",
+    "name": "Firefox OS Protractor",
+    "launch_path": "/index.html",
+    "description": "Mesure angle of things",
+    "fullscreen": "true",
+    "type": "privileged",
+    "orientation": ["landscape"],
+    "icons": {
+        "16": "/img/logo/logo16.png",
+        "32": "/img/logo/logo32.png",
+        "48": "/img/logo/logo48.png",
+        "64": "/img/logo/logo64.png",
+        "128": "/img/logo/logo128.png"
+    },
+    "developer": {
+        "name": "Aras Balali Moghaddam",
+        "url": "http://arasbm.com"
+    },
+    "installs_allowed_from": ["*"],
+    "default_locale": "en",
+    "permissions": {
+        "desktop-notification": {
+            "description" : "To show notifications"
+        },
+        "geolocation": {
+            "description" : "Saving user location on snapshots"
+        }
+    }
+}
