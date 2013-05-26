@@ -18,13 +18,5 @@
         "url": "http://arasbm.com"
     },
     "installs_allowed_from": ["*"],
-    "default_locale": "en",
-    "permissions": {
-        "desktop-notification": {
-            "description" : "To show notifications"
-        },
-        "geolocation": {
-            "description" : "Saving user location on snapshots"
-        }
-    }
+    "default_locale": "en"
 }
