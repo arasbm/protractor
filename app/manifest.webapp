@@ -1,6 +1,6 @@
 {
-    "version": "1",
-    "name": "Firefox OS Protractor",
+    "version": "1.0",
+    "name": "Protractor",
     "launch_path": "/index.html",
     "description": "Mesure angle of things",
     "fullscreen": "true",

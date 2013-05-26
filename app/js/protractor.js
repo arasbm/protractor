@@ -1,47 +1,30 @@
-// Draw background and handle of protractor on #canvas
-function drawProtractor(beta) {
-  var canvas = document.getElementById('canvas');
-  var ctx = canvas.getContext('2d');
-  var protractor = new Image();
-  var handle = new Image();
-  var pi = 3.14159;
-  var border = 4;
+$(document).ready(function() {
+  var handle = $("#handle");
+  var bp = $("#backdrop-protractor");
+  handle.css({height: bp.height()});
+  handle.css({left: (bp.width() / 2) - (handle.width() / 2)});
+});
 
-  canvas.height = window.innerHeight;
-  canvas.width = window.innerWidth;
-  ctx.save();
-  ctx.clearRect( 0, 0, canvas.width, canvas.height );
+function rotate(object, degrees) {
+    object.css({
+  '-webkit-transform' : 'rotate('+degrees+'deg)',
+     '-moz-transform' : 'rotate('+degrees+'deg)',  
+      '-ms-transform' : 'rotate('+degrees+'deg)',  
+       '-o-transform' : 'rotate('+degrees+'deg)',  
+          'transform' : 'rotate('+degrees+'deg)'  
+    });
+}
 
-  ctx.fillStyle="#090";
-  ctx.strokeStyle="#fff";
+// Display the given angle on the screen
+function writeAngle(beta) {
+  var trunc = Math.floor(100 * beta) / 100; 
+  $("div#show-angle").text(trunc + "°");
+}
 
-  protractor.src = 'img/protractor.png';
-  protractor.onload = function(){
-    w = canvas.width - border;
-    h = protractor.height * (canvas.width / protractor.width) - border; 
-    x = 0;
-    y = 0;
-    ctx.drawImage(protractor, x, y, w, h);
-  };
-
-  handle.src = 'img/handle.png';
-  handle.onload = function(){
-    x = (canvas.width / 2);
-    y = 0;
-    //h = canvas.height;
-    //w = handle.width * (canvas.width / handle.height); 
-
-    ctx.translate(x, y);
-    ctx.rotate(pi * (beta / 180));
-    ctx.drawImage(handle, -(handle.width / 2), 0); 
-    ctx.restore();
-  }
-
-  //ctx.stroke();
-  ctx.fillStyle = "red";
-  ctx.font = "bold 24px Arial";
-  ctx.fillText(beta + "°", canvas.width / 2, canvas.height - 40);
- 
+// adjust protractor handle according to beta angle
+function adjustHandle(beta) {
+  var handle = $("#handle");
+  rotate(handle, beta);
 }
 
 window.addEventListener("compassneedscalibration", function(event) {
@@ -50,14 +33,10 @@ window.addEventListener("compassneedscalibration", function(event) {
   }, true);
 
 window.ondeviceorientation = function (event) {
+  //use orientedTo value to correct negative value when phone is held upside down
   var orientedTo = (event.beta > 45 && event.beta < 135) ? "top" : (event.beta < -45 && event.beta > -135) ? "bottom" : (event.gamma > 45) ? "right" : (event.gamma < -45) ? "left" : "flat";
-  var orientation = "<strong>Absolute: </strong>" + event.absolute + "<br>"
-                  + "<strong>Alpha: </strong>" + event.alpha + "<br>"
-                  + "<strong>Beta: </strong>" + event.beta + "<br>"
-                  + "<strong>Gamma: </strong>" + event.gamma + "<br>"
-                  + "<strong>Device orientation: </strong>" + orientedTo;
-  drawProtractor(event.beta);
-};
 
-drawProtractor(90);
+  writeAngle(event.beta);
+  adjustHandle(event.beta);
+};
 

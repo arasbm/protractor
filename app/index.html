@@ -2,12 +2,15 @@
   <head manifest="offline.appcache">
     <meta charset="utf-8">
     <title>Protractor</title>
-    <meta name="description" content="With this protractor you can mesure angle of objects you see in the live video preview">
+    <meta name="description" content="With this protractor you can measure angle of objects around you">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <canvas id="canvas"></canvas>
+    <img id="backdrop-protractor" src="img/protractor_plain.svg" />
+    <img id="handle" src="img/handle_plain.svg" />
+    <div id="show-angle">angle</div>
+    <script type="text/javascript" src="js/vendor/jquery-2.0.1.min.js"></script>
     <script type="text/javascript" src="js/protractor.js"></script>
   </body>
 </html>
