@@ -1,5 +1,4 @@
-# Protractor
-## A Firefox OS App
+# Protractor | A Firefox OS App
 Protractor is a simple and useful Firefox OS app that allows you to measure angles of objects. 
 
 * To see how the app can be used take a look at this post: http://arasbm.com/portfolio/web/protractor/
