@@ -4,7 +4,6 @@
     "launch_path": "/index.html",
     "description": "Mesure angle of things",
     "fullscreen": "true",
-    "type": "privileged",
     "orientation": ["landscape"],
     "icons": {
         "16": "/img/logo/logo16.png",
