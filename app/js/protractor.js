@@ -27,16 +27,26 @@ function adjustHandle(beta) {
   rotate(handle, beta);
 }
 
+function getEdgeAngle(evt) {
+  var angle = evt.beta;
+
+  if (angle > 90) {
+    angle = 180 - angle;
+  } else if (angle < -90) {
+    angle = -180 - angle;
+  }
+
+  return angle;
+}
+
 window.addEventListener("compassneedscalibration", function(event) {
-  alert('Your compass needs calibrating! Wave your device in a figure-eight motion');
+  alert('Your compass needs calibrating! Please wave your device in a figure-eight motion');
   event.preventDefault();
   }, true);
 
 window.ondeviceorientation = function (event) {
-  //use orientedTo value to correct negative value when phone is held upside down
-  var orientedTo = (event.beta > 45 && event.beta < 135) ? "top" : (event.beta < -45 && event.beta > -135) ? "bottom" : (event.gamma > 45) ? "right" : (event.gamma < -45) ? "left" : "flat";
-
-  writeAngle(event.beta);
-  adjustHandle(event.beta);
+  var angle = getEdgeAngle(event); 
+  adjustHandle(angle);
+  writeAngle(angle);
 };
 
