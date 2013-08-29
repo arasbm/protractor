@@ -6,12 +6,12 @@
     "fullscreen": "true",
     "orientation": ["landscape"],
     "icons": {
-        "16": "img/logo/logo16.png",
-        "32": "img/logo/logo32.png",
-        "48": "img/logo/logo48.png",
-        "60": "img/logo/logo60.png",
-        "64": "img/logo/logo64.png",
-        "128": "img/logo/logo128.png"
+        "16": "/protractor/app/img/logo/logo16.png",
+        "32": "/protractor/app/img/logo/logo32.png",
+        "48": "/protractor/app/img/logo/logo48.png",
+        "60": "/protractor/app/img/logo/logo60.png",
+        "64": "/protractor/app/img/logo/logo64.png",
+        "128": "/protractor/app/img/logo/logo128.png"
     },
     "developer": {
         "name": "Aras Balali Moghaddam",
