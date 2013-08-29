@@ -1,8 +1,12 @@
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded',function(){
   var handle = $("#handle");
-  var bp = $("#backdrop-protractor");
-  handle.css({height: bp.height()});
-  handle.css({left: (bp.width() / 2) - (handle.width() / 2)});
+  var w = document.body.clientWidth;
+  var h = w / 2; // based on aspect ratio of backdrop image
+  var handleWidth = h / 3.7; // based on aspect ratio of handle
+  handle.animate({
+      height: h,
+      left: w / 2 - handleWidth / 2
+    }, 300);
 });
 
 function rotate(object, degrees) {
