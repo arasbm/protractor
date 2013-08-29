@@ -4,40 +4,60 @@
   </head>
   <body>
     <img id="home-protractor" src="app/img/protractor_plain.svg" />
-    <div id="installation-instructions"></div>
-    <div id="install-button"</div>
+    <div id="install-button">Install</div>
   </body>
 
+  <style type="text/css">
+    #install-button {
+      position: fixed;
+      left: 100%;
+      top: 0;
+      width: 6em;
+      margin: 1em 0 0 -14em;
+      text-decoration: none;
+      font: bold 14px/14px HelveticaNeue, Arial;
+      border: 1px solid #dedede;
+      padding: 1em 1em 1em 4em;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      background: #fecc5f;
+      background: -webkit-gradient(linear, left top, left bottom, from(#feda71), to(#febb4a)); /*  WebKit */
+      background: -moz-linear-gradient(top,  #feda71, #febb4a);
+      border-color: #f5b74e #e5a73e #d6982f;
+      color: #996633;
+      text-shadow: 0 1px 0 #fedd9b;
+      -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
+      -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
+      box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
+    }
+    #install-button:hover{
+      background: #fecb5e;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fec354), to(#fecd61)); /*  WebKit */
+      background: -moz-linear-gradient(top,  #fec354, #fecd61);
+      border-color: #d29a3a #cc9436 #c89133;
+      text-shadow: 0 1px 0 #fee1a0;
+      -webkit-box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;
+      -moz-box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;
+      box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;    
+    }
+  </style>
   <script type="text/javascript">
     // Install app
-    if (navigator.mozApps) {
-        var checkIfInstalled = navigator.mozApps.getSelf();
-        checkIfInstalled.onsuccess = function () {
-            if (checkIfInstalled.result) {
-                // Already installed
-                var installationInstructions = document.querySelector("#installation-instructions");
-                if (installationInstructions) {
-                    installationInstructions.style.display = "none";
-                }
-            }
-            else {
-                var install = document.querySelector("#install-button"),
-                    manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) + "/app/manifest.webapp";
-                install.className = "show-install";
-                install.onclick = function () {
-                    var installApp = navigator.mozApps.install(manifestURL);
-                    installApp.onsuccess = function(data) {
-                        install.style.display = "none";
-                    };
-                    installApp.onerror = function() {
-                        alert("Install failed\n\n:" + installApp.error.name);
-                    };
-                };
-            }
+    (function(){
+      function install(ev) {
+        ev.preventDefault();
+        var manifest_url = "http://protractor.arasbm.com/protractor/app/manifest.webapp";
+        var myapp = navigator.mozApps.install(manifest_url);
+        myapp.onsuccess = function(data) {
+          this.parentNode.removeChild(this);
         };
-    }
-    else {
-        console.log("Open Web Apps not supported");
-    }
+        myapp.onerror = function() {
+          console.log('Install failed, error: ' + this.error.name);
+        };
+      };
+      var button = document.getElementById('install-button');
+      button.addEventListener('click', install, false);
+    })();
   </script>
 </html>
