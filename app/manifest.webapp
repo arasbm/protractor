@@ -1,7 +1,7 @@
 {
     "version": "1.0",
     "name": "Protractor",
-    "launch_path": "/index.html",
+    "launch_path": "/protractor/app/index.html",
     "description": "Mesure angle of things",
     "fullscreen": "true",
     "orientation": ["landscape"],
