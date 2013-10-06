@@ -1,5 +1,7 @@
-document.addEventListener('DOMContentLoaded',function(){
-  var handle = $("#handle");
+var screen_lock;
+
+document.addEventListener('DOMContentLoaded', function() {
+  var handle = $('#handle');
   var w = document.body.clientWidth;
   var h = w / 2; // based on aspect ratio of backdrop image
   var handleWidth = h / 3.7; // based on aspect ratio of handle
@@ -9,25 +11,35 @@ document.addEventListener('DOMContentLoaded',function(){
     }, 300);
 });
 
+document.addEventListener('visibilityChange', function() {
+  if (document.hidden) {
+    screen_lock = window.navigator.requestWakeLock('screen');
+    console.log("Protractor obtained screen lock");
+  } else {
+    screen_lock.release();
+    console.log("Protractor is releasing screen lock");
+  }
+});
+
 function rotate(object, degrees) {
     object.css({
-  '-webkit-transform' : 'rotate('+degrees+'deg)',
-     '-moz-transform' : 'rotate('+degrees+'deg)',  
-      '-ms-transform' : 'rotate('+degrees+'deg)',  
-       '-o-transform' : 'rotate('+degrees+'deg)',  
-          'transform' : 'rotate('+degrees+'deg)'  
+  '-webkit-transform' : 'rotate(' + degrees + 'deg)',
+     '-moz-transform' : 'rotate(' + degrees + 'deg)',  
+      '-ms-transform' : 'rotate(' + degrees + 'deg)',  
+       '-o-transform' : 'rotate(' + degrees + 'deg)',  
+          'transform' : 'rotate(' + degrees + 'deg)'  
     });
 }
 
 // Display the given angle on the screen
 function writeAngle(beta) {
-  var trunc = Math.floor(100 * beta) / 100; 
-  $("div#show-angle").text(trunc + "°");
+  var trunc = Math.floor(100 * beta) / 100;
+  $('div#show-angle').text(trunc + '°');
 }
 
 // adjust protractor handle according to beta angle
 function adjustHandle(beta) {
-  var handle = $("#handle");
+  var handle = $('#handle');
   rotate(handle, beta);
 }
 
@@ -43,13 +55,13 @@ function getEdgeAngle(evt) {
   return angle;
 }
 
-window.addEventListener("compassneedscalibration", function(event) {
+window.addEventListener('compassneedscalibration', function(event) {
   alert('Your compass needs calibrating! Please wave your device in a figure-eight motion');
   event.preventDefault();
   }, true);
 
 window.ondeviceorientation = function (event) {
-  var angle = getEdgeAngle(event); 
+  var angle = getEdgeAngle(event);
   adjustHandle(angle);
   writeAngle(angle);
 };
