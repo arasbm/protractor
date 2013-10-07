@@ -47,10 +47,10 @@
     (function(){
       function install(ev) {
         ev.preventDefault();
-        var manifest_url = "http://protractor.arasbm.com/protractor/app/manifest.webapp";
+        var manifest_url = 'http://' + window.location.host + '/protractor/app/manifest.webapp';
         var myapp = navigator.mozApps.install(manifest_url);
         myapp.onsuccess = function(data) {
-          this.parentNode.removeChild(this);
+          button.innerHTML = 'installed';
         };
         myapp.onerror = function() {
           console.log('Install failed, error: ' + this.error.name);

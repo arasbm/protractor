@@ -1,4 +1,4 @@
-var screen_lock;
+var screen_lock = window.navigator.requestWakeLock('screen');
 
 document.addEventListener('DOMContentLoaded', function() {
   var handle = $('#handle');
@@ -11,24 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
 });
 
-document.addEventListener('visibilityChange', function() {
-  if (document.hidden) {
-    screen_lock = window.navigator.requestWakeLock('screen');
-    console.log("Protractor obtained screen lock");
-  } else {
-    screen_lock.release();
-    console.log("Protractor is releasing screen lock");
-  }
+window.addEventListener('unload', function() {
+  console.log('Protractor: unlocking the screen wake lock');
+  screen_lock.unlock();
 });
 
 function rotate(object, degrees) {
-    object.css({
+  object.css({
   '-webkit-transform' : 'rotate(' + degrees + 'deg)',
-     '-moz-transform' : 'rotate(' + degrees + 'deg)',  
-      '-ms-transform' : 'rotate(' + degrees + 'deg)',  
-       '-o-transform' : 'rotate(' + degrees + 'deg)',  
-          'transform' : 'rotate(' + degrees + 'deg)'  
-    });
+     '-moz-transform' : 'rotate(' + degrees + 'deg)',
+      '-ms-transform' : 'rotate(' + degrees + 'deg)',
+       '-o-transform' : 'rotate(' + degrees + 'deg)',
+          'transform' : 'rotate(' + degrees + 'deg)'
+  });
 }
 
 // Display the given angle on the screen
